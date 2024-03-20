@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from './About';
 import Contact from './Contact';
 import Users from './components/Users';
+import UserDetails from './UserDetails';
+import Posts from './Posts';
+import PostDetails from './components/PostDetails';
 
 
 
@@ -27,6 +30,24 @@ const router = createBrowserRouter([
         path: "/users",
         loader: () => fetch("https://jsonplaceholder.typicode.com/users"),
         element: <Users></Users>,
+      },
+      {
+        // userId is like variable
+        path: "/user/:userId",
+        // loader diye data fetch korte hoy and useLoaderData() diye receive korte hoy
+        loader: ({ params }) =>
+          fetch(`https://jsonplaceholder.typicode.com/users/${params.userId}`),
+        element: <UserDetails></UserDetails>,
+      },
+      {
+        path: '/posts',
+        loader: ()=> fetch('https://jsonplaceholder.typicode.com/posts'),
+        element: <Posts></Posts>
+      },
+      {
+        path: '/posts/:id',
+        loader: ({params})=> fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`),
+        element: <PostDetails></PostDetails>
       },
     ],
   },
